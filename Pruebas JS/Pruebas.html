@@ -1,0 +1,82 @@
+<html> 
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<head><title>Prueba</title>
+</head>
+<body>
+<h1>Calendario con javascript</h1>
+<br/><br/>
+<div id="calendario">
+  <div id="anterior" onclick="mesantes()"></div>
+  <div id="posterior" onclick="mesdespues()"></div>
+  <h2 id="titulos"></h2>
+  
+</body>
+</html>
+
+ <script>
+meses =["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+lasemana = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
+diassemana = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+
+//fecha actual
+var hoy = new Date()
+var mes = hoy.getMonth()
+var dia = 1
+var anio = hoy.getFullYear()
+ 
+ 
+  // Obtener la referencia del elemento body
+  var body = document.getElementsByTagName("body")[0];
+ 
+  // Crea un elemento <table> y un elemento <tbody>
+  var tabla   = document.createElement("table");
+  var thead = document.createElement("thead");
+  var tblBody = document.createElement("tbody");
+  var fi2 = document.createElement('tr');
+  var fi2b = document.createElement('th');
+  fi2b.setAttribute("colspan", "7");
+  fi2b.appendChild(document.createTextNode(meses[mes] + "  -  " + anio));  
+  fi2b.setAttribute("text-align", "center");
+  fi2.setAttribute("text-align", "center");
+  fi2.appendChild(fi2b);
+  thead.appendChild(fi2);
+  thead.setAttribute("text-align", "center");
+  
+  
+  
+ var count=0;
+ for (var i = 0; i < 7; i++) { 
+	var diasSemanasTable = document.createElement("td");
+	diasSemanasTable.id = "fila" +i;
+	diasSemanasTable.innerHTML=diassemana[i];
+	  tblBody.appendChild(diasSemanasTable);
+ }
+  // Crea las celdas
+  for (var i = 0; i < 5; i++) {
+    // Crea las hileras de la tabla
+    var hilera = document.createElement("tr");
+    for (var j = 0; j < 7; j++) {
+      // Crea un elemento <td> y un nodo de texto, haz que el nodo de
+      // texto sea el contenido de <td>, ubica el elemento <td> al final
+      // de la hilera de la tabla
+      var celda = document.createElement("td");
+	  celda.setAttribute("contenteditable", "true")
+	  celda.innerHTML = ++count;
+      hilera.appendChild(celda);
+    }
+ 
+    // agrega la hilera al final de la tabla (al final del elemento tblbody)
+    tblBody.appendChild(hilera);
+  }
+ 
+  // posiciona el <tbody> debajo del elemento <table>
+  tabla.appendChild(thead);
+  tabla.appendChild(tblBody);
+  // appends <table> into <body>
+  body.appendChild(tabla);
+  // modifica el atributo "border" de la tabla y lo fija a "2";
+  tabla.setAttribute("class", "table table-striped");
+  tabla.setAttribute("id", "calendario");
+  
+</script>
